@@ -23,41 +23,27 @@ export async function GET(context) {
   ];
 
   // Build sitemap XML
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>
-';
-  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-';
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+  xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
   // Add static pages
   staticPages.forEach(path => {
-    xml += `  <url>
-`;
-    xml += `    <loc>${siteUrl}${path}</loc>
-`;
-    xml += `    <lastmod>${new Date().toISOString()}</lastmod>
-`;
-    xml += `    <changefreq>daily</changefreq>
-`;
-    xml += `    <priority>${path === '' ? '1.0' : '0.8'}</priority>
-`;
-    xml += `  </url>
-`;
+    xml += `  <url>\n`;
+    xml += `    <loc>${siteUrl}${path}</loc>\n`;
+    xml += `    <lastmod>${new Date().toISOString()}</lastmod>\n`;
+    xml += `    <changefreq>daily</changefreq>\n`;
+    xml += `    <priority>${path === '' ? '1.0' : '0.8'}</priority>\n`;
+    xml += `  </url>\n`;
   });
 
   // Add dynamic match pages
   matches.forEach(match => {
-    xml += `  <url>
-`;
-    xml += `    <loc>${siteUrl}/${match.slug}/</loc>
-`;
-    xml += `    <lastmod>${match.updated_at}</lastmod>
-`;
-    xml += `    <changefreq>daily</changefreq>
-`;
-    xml += `    <priority>0.9</priority>
-`;
-    xml += `  </url>
-`;
+    xml += `  <url>\n`;
+    xml += `    <loc>${siteUrl}/${match.slug}/</loc>\n`;
+    xml += `    <lastmod>${match.updated_at}</lastmod>\n`;
+    xml += `    <changefreq>daily</changefreq>\n`;
+    xml += `    <priority>0.9</priority>\n`;
+    xml += `  </url>\n`;
   });
 
   xml += '</urlset>';
