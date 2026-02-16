@@ -1,0 +1,44 @@
+name: Ping Bing on Content Updates
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/pages/**'
+      - 'content/**'
+      - 'src/data/matches.json'
+  schedule:
+    # Ping Bing every 4 hours about new matches
+    - cron: '0 */4 * * *'
+
+jobs:
+  ping-bing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch latest matches
+        run: npm run fetch:matches
+        env:
+          MATCHES_JSON_URL: ${{ secrets.MATCHES_JSON_URL }}
+
+      - name: Ping Bing with updated URLs
+        run: node scripts/bingPing.js
+        env:
+          BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+          SITE_URL: https://futbollibre.velcuri.io
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check ping status
+        run: |
+          echo "URLs pinged to Bing for immediate indexing"

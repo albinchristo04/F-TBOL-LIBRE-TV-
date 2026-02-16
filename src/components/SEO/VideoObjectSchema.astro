@@ -1,0 +1,23 @@
+---
+interface Props {
+  match: any;
+}
+
+const { match } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": `${match.team_a} vs ${match.team_b} en vivo`,
+  "description": `Transmisión en vivo de ${match.team_a} vs ${match.team_b}`,
+  "uploadDate": new Date().toISOString(),
+  "url": `https://futbollibre.velcuri.io/${match.slug}/`,
+  "thumbnailUrl": [
+    `https://futbollibre.velcuri.io/og-image.jpg`
+  ],
+  "duration": "PT120M",
+  "embedUrl": match.decoded_iframe_url
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

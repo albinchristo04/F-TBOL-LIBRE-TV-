@@ -1,0 +1,153 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  robots?: string;
+  keywords?: string;
+  lastModified?: string;
+  publishDate?: string;
+  author?: string;
+  category?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType = 'article',
+  robots,
+  keywords,
+  lastModified,
+  publishDate,
+  author = 'Fútbol Libre TV',
+  category = 'Fútbol',
+} = Astro.props;
+---
+
+<Base
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+  ogType={ogType}
+  robots={robots}
+  keywords={keywords}
+  lastModified={lastModified}
+>
+  <article class="blog-post">
+    <header class="blog-header">
+      {category && (
+        <span class="blog-category">{category}</span>
+      )}
+      <h1 class="blog-title">{title}</h1>
+      {publishDate && (
+        <div class="blog-meta">
+          <time datetime={publishDate}>
+            {new Date(publishDate).toLocaleDateString('es-ES', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </time>
+          <span class="separator">•</span>
+          <span class="author">{author}</span>
+        </div>
+      )}
+    </header>
+
+    <div class="blog-content">
+      <slot />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .blog-header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .blog-category {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .blog-title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .blog-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .separator {
+    color: #999;
+  }
+
+  .blog-content {
+    line-height: 1.8;
+  }
+
+  .blog-content h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-content h3 {
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-content p {
+    margin-bottom: 1rem;
+  }
+
+  .blog-content ul,
+  .blog-content ol {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .blog-post {
+      padding: 3rem 2rem;
+    }
+
+    .blog-title {
+      font-size: 2.5rem;
+    }
+  }
+</style>

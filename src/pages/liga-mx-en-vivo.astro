@@ -1,0 +1,202 @@
+---
+import Base from '../layouts/Base.astro';
+import MatchCard from '../components/MatchCard.astro';
+import { fetchMatches, getMatchesByLeague } from '../lib/fetchMatches';
+
+const allMatches = await fetchMatches();
+const ligaMxMatches = await getMatchesByLeague('Liga MX');
+
+const pageTitle = 'Liga MX en Vivo Gratis | Transmisión Directa | Fútbol Libre TV';
+const pageDescription = 'Ver Liga MX en vivo gratis. Transmisión en directo de todos los partidos. Sin registrarse. ⚽';
+const pageKeywords = 'Liga MX en vivo, Liga MX en vivo gratis, transmisión Liga MX, partidos Liga MX hoy';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <section class="league-hero">
+    <div class="league-content">
+      <h1>Liga MX en Vivo</h1>
+      <p>Transmisión en directo de todos los partidos de Liga MX sin registrarse</p>
+    </div>
+  </section>
+
+  <section class="league-container">
+    <h2>Partidos de Liga MX en Directo</h2>
+
+    {ligaMxMatches.length > 0 ? (
+      <div class="matches-grid">
+        {ligaMxMatches.map(match => (
+          <MatchCard match={match} />
+        ))}
+      </div>
+    ) : (
+      <p class="no-matches">No hay partidos disponibles en este momento</p>
+    )}
+  </section>
+
+  <!-- Info Section with Keywords -->
+  <section class="league-info">
+    <h2>Sobre Liga MX</h2>
+    <p>
+      La Liga MX es la competición profesional de fútbol más importante de México.
+      En Fútbol Libre TV puedes ver todos los partidos de Liga MX en vivo gratis,
+      sin registrarte y desde cualquier dispositivo. Disfruta de la mejor transmisión
+      en directo de fútbol mexicano.
+    </p>
+
+    <h3>¿Cómo ver Liga MX en vivo?</h3>
+    <p>
+      Ver Liga MX en vivo es muy fácil en Fútbol Libre TV. Solo selecciona el partido
+      que deseas ver y presiona play. No necesitas registrarte ni crear cuenta.
+    </p>
+
+    <h3>¿Qué equipos juegan en la Liga MX?</h3>
+    <p>
+      La Liga MX cuenta con 18 equipos que compiten en dos torneos anuales: Apertura
+      y Clausura. Algunos de los equipos más populares son América, Chivas, Cruz Azul,
+      Pumas, Monterrey, Tigres y muchos más.
+    </p>
+
+    <h3>¿Cuándo se juegan los partidos de Liga MX?</h3>
+    <p>
+      Los partidos de Liga MX se juegan principalmente los fines de semana, aunque
+      también hay partidos entre semana. Consulta la lista de arriba para ver los
+      horarios exactos de cada partido.
+    </p>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Puedo ver Liga MX en vivo gratis?</h3>
+      <p>
+        Sí, en Fútbol Libre TV puedes ver todos los partidos de Liga MX en vivo gratis.
+        No necesitas pagar ni registrarte.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Funciona en móvil?</h3>
+      <p>
+        Sí, Fútbol Libre TV funciona en todos los dispositivos: teléfono, tablet,
+        computadora y smart TV.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Necesito registrarme?</h3>
+      <p>
+        No, en Fútbol Libre TV no necesitas registrarte ni crear cuenta. Solo selecciona
+        el partido y presiona play.
+      </p>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsLeague",
+    "name": "Liga MX",
+    "description": "Liga profesional de fútbol de México",
+    "url": "https://futbollibre.velcuri.io/liga-mx-en-vivo/"
+  }
+  </script>
+</Base>
+
+<style>
+  .league-hero {
+    background: linear-gradient(135deg, #00a86b 0%, #005e3a 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .league-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .league-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .league-container h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .league-info {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+  }
+
+  .league-info h2 {
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+  }
+
+  .league-info h3 {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .league-info p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  .faq-section {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem 1rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .league-hero h1 {
+      font-size: 2rem;
+    }
+
+    .matches-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

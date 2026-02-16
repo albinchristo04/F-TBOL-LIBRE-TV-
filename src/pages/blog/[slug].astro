@@ -1,0 +1,165 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// SEO optimization
+const pageTitle = `${post.data.title} | Fútbol Libre TV`;
+const pageDescription = post.data.description || 'Artículo sobre fútbol en Fútbol Libre TV';
+const pageKeywords = post.data.keywords || 'fútbol, en vivo, streaming, gratis';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  lastModified={post.data.updatedAt || post.data.date}
+>
+  <article class="blog-post">
+    <header class="blog-header">
+      <h1>{post.data.title}</h1>
+      <div class="blog-meta">
+        <time datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('es-ES', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+        {post.data.league && <span class="league">{post.data.league}</span>}
+      </div>
+    </header>
+
+    <div class="blog-content">
+      <Content />
+    </div>
+
+    {post.data.team_a && post.data.team_b && (
+      <section class="related-match">
+        <h2>Ver Partido Relacionado</h2>
+        <a href={`/${post.data.team_a.toLowerCase().replace(/\s+/g, '-')}-vs-${post.data.team_b.toLowerCase().replace(/\s+/g, '-')}/`}>
+          Ver {post.data.team_a} vs {post.data.team_b} en vivo
+        </a>
+      </section>
+    )}
+
+    <nav class="blog-navigation">
+      <a href="/blog/">← Volver al blog</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .blog-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .blog-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .blog-meta {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .league {
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+  }
+
+  .blog-content {
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .blog-content :global(h2) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .blog-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+
+  .related-match {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f0f7ff;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+
+  .related-match h2 {
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .related-match a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
+  }
+
+  .related-match a:hover {
+    background: #5568d3;
+  }
+
+  .blog-navigation {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+  }
+
+  .blog-navigation a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .blog-navigation a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .blog-post {
+      padding: 2rem 1rem;
+    }
+
+    .blog-header h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

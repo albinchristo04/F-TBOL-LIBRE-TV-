@@ -1,0 +1,44 @@
+[
+  {
+    "id": "liga-mx",
+    "name": "Liga MX",
+    "country": "México",
+    "color": "#00a86b",
+    "url": "/liga-mx-en-vivo/"
+  },
+  {
+    "id": "champions-league",
+    "name": "Champions League",
+    "country": "Europa",
+    "color": "#1a237e",
+    "url": "/champions-league-en-vivo/"
+  },
+  {
+    "id": "premier-league",
+    "name": "Premier League",
+    "country": "Inglaterra",
+    "color": "#38003c",
+    "url": "/premier-league-en-vivo/"
+  },
+  {
+    "id": "la-liga",
+    "name": "La Liga",
+    "country": "España",
+    "color": "#ee0000",
+    "url": "/la-liga-en-vivo/"
+  },
+  {
+    "id": "serie-a",
+    "name": "Serie A",
+    "country": "Italia",
+    "color": "#008fd7",
+    "url": "/serie-a-en-vivo/"
+  },
+  {
+    "id": "copa-libertadores",
+    "name": "Copa Libertadores",
+    "country": "Sudamérica",
+    "color": "#1a237e",
+    "url": "/copa-libertadores-en-vivo/"
+  }
+]

@@ -1,0 +1,272 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const pageTitle = 'Previews de Partidos | Fútbol Libre TV';
+const pageDescription = 'Lee los previews de los partidos más importantes. Análisis de Liga MX, Champions League, Premier League y más.';
+const pageKeywords = 'previews de partidos, análisis de partidos, previa fútbol, pronósticos de fútbol';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <section class="page-header">
+    <h1>Previews de Partidos</h1>
+    <p>Análisis completos de los partidos más importantes del fútbol mundial</p>
+  </section>
+
+  <section class="previews-list">
+    <!-- Example previews - in production these would be fetched from content/blog/match-previews -->
+    <article class="preview-card">
+      <div class="preview-header">
+        <span class="league-badge">Liga MX</span>
+        <time class="preview-date">Hace 2 días</time>
+      </div>
+      <h2>Previa: América vs Chivas</h2>
+      <p>
+        El clásico más importante de México se disputará este fin de semana. Ambos equipos
+        llegan en buena forma y buscan los tres puntos.
+      </p>
+      <div class="preview-meta">
+        <span>📅 Sábado, 15:00</span>
+        <span>🏟️ Estadio Azteca</span>
+      </div>
+      <a href="/blog/preview-america-chivas/" class="read-more">Leer análisis completo →</a>
+    </article>
+
+    <article class="preview-card">
+      <div class="preview-header">
+        <span class="league-badge">Champions League</span>
+        <time class="preview-date">Hace 3 días</time>
+      </div>
+      <h2>Previa: Real Madrid vs Bayern Munich</h2>
+      <p>
+        Dos gigantes europeos se enfrentan en una de las semifinales más emocionantes
+        de la Champions League.
+      </p>
+      <div class="preview-meta">
+        <span>📅 Martes, 21:00</span>
+        <span>🏟️ Santiago Bernabéu</span>
+      </div>
+      <a href="/blog/preview-real-madrid-bayern/" class="read-more">Leer análisis completo →</a>
+    </article>
+
+    <article class="preview-card">
+      <div class="preview-header">
+        <span class="league-badge">Premier League</span>
+        <time class="preview-date">Hace 4 días</time>
+      </div>
+      <h2>Previa: Manchester City vs Liverpool</h2>
+      <p>
+        El choque de titanes de la Premier League promete ser un partido espectacular.
+        Ambos equipos luchan por el liderato.
+      </p>
+      <div class="preview-meta">
+        <span>📅 Domingo, 16:30</span>
+        <span>🏟️ Etihad Stadium</span>
+      </div>
+      <a href="/blog/preview-manchester-liverpool/" class="read-more">Leer análisis completo →</a>
+    </article>
+  </section>
+
+  <section class="info-section">
+    <h2>Sobre Nuestros Previews</h2>
+    <p>
+      Nuestros previews de partidos ofrecen análisis detallados de los encuentros más
+      importantes del fútbol mundial. Incluimos:
+    </p>
+    <ul>
+      <li>Análisis de forma reciente de ambos equipos</li>
+      <li>Historial de enfrentamientos directos</li>
+      <li>Jugadores clave a observar</li>
+      <li>Pronósticos basados en estadísticas</li>
+      <li>Información sobre dónde ver el partido</li>
+    </ul>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Con qué antelación publican los previews?</h3>
+      <p>
+        Publicamos nuestros previews 48-72 horas antes de cada partido importante,
+        para que tengas tiempo de leer el análisis antes del encuentro.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué partidos analizan?</h3>
+      <p>
+        Analizamos los partidos más importantes de todas las ligas principales:
+        Liga MX, Champions League, Premier League, La Liga, Serie A y Copa Libertadores.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .previews-list {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 0 2rem;
+  }
+
+  .preview-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .preview-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+  }
+
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .league-badge {
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .preview-date {
+    color: #999;
+    font-size: 0.85rem;
+  }
+
+  .preview-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .preview-card p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .preview-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+    font-size: 0.9rem;
+  }
+
+  .read-more {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .read-more:hover {
+    color: #764ba2;
+  }
+
+  .info-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+  }
+
+  .info-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .info-section p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .info-section li {
+    padding: 0.5rem 0;
+    color: #555;
+    line-height: 1.8;
+  }
+
+  .info-section li::before {
+    content: "✓ ";
+    color: #667eea;
+    font-weight: 700;
+  }
+
+  .faq-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 2rem 1rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .preview-meta {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,202 @@
+---
+import Base from '../layouts/Base.astro';
+import MatchCard from '../components/MatchCard.astro';
+import MatchFilters from '../components/MatchFilters.astro';
+import { fetchMatches, getTodayMatches } from '../lib/fetchMatches';
+
+const allMatches = await fetchMatches();
+const todayMatches = await getTodayMatches();
+
+const pageTitle = 'Partidos de Fútbol Hoy en Vivo | Fútbol Libre TV';
+const pageDescription = 'Ver partidos de fútbol hoy en vivo gratis. Todos los partidos del día. Liga MX, Champions League, Premier League, La Liga y más.';
+const pageKeywords = 'partidos hoy, fútbol hoy, partidos de fútbol hoy, ver fútbol hoy, partidos en vivo hoy';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <section class="page-header">
+    <h1>Partidos de Fútbol Hoy en Vivo</h1>
+    <p>Encuentra todos los partidos de fútbol programados para hoy. Transmisión en directo sin registrarse.</p>
+  </section>
+
+  <MatchFilters />
+
+  <section class="matches-section">
+    {todayMatches.length > 0 ? (
+      <div class="matches-grid">
+        {todayMatches.map(match => (
+          <MatchCard match={match} />
+        ))}
+      </div>
+    ) : (
+      <div class="no-matches">
+        <p>⚠️ No hay partidos programados para hoy</p>
+        <p>Vuelve más tarde para ver los partidos de mañana</p>
+      </div>
+    )}
+  </section>
+
+  <section class="info-section">
+    <h2>¿Cómo ver los partidos de hoy?</h2>
+    <p>
+      En Fútbol Libre TV puedes ver todos los partidos de fútbol hoy en vivo gratis.
+      Solo selecciona el partido que deseas ver y presiona play. No necesitas registrarte
+      ni crear cuenta.
+    </p>
+
+    <h3>Partidos por Liga</h3>
+    <ul>
+      <li><a href="/liga-mx-en-vivo/">Liga MX en vivo</a></li>
+      <li><a href="/champions-league-en-vivo/">Champions League en vivo</a></li>
+      <li><a href="/premier-league-en-vivo/">Premier League en vivo</a></li>
+      <li><a href="/la-liga-en-vivo/">La Liga en vivo</a></li>
+      <li><a href="/serie-a-en-vivo/">Serie A en vivo</a></li>
+      <li><a href="/copa-libertadores-en-vivo/">Copa Libertadores en vivo</a></li>
+    </ul>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Qué partidos hay hoy?</h3>
+      <p>
+        Aquí encontrarás todos los partidos de fútbol programados para hoy, incluyendo
+        Liga MX, Champions League, Premier League, La Liga, Serie A y más.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿A qué hora empiezan los partidos?</h3>
+      <p>
+        Los horarios de los partidos varían según la liga y la competencia.
+        Consulta la lista de arriba para ver los horarios exactos de cada partido.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo ver los partidos en mi móvil?</h3>
+      <p>
+        Sí, Fútbol Libre TV funciona en todos los dispositivos: teléfono, tablet,
+        computadora y smart TV. Solo necesitas un navegador y conexión a internet.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .matches-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  .matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .no-matches {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #666;
+  }
+
+  .no-matches p {
+    margin: 0.5rem 0;
+  }
+
+  .info-section {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem 1rem;
+  }
+
+  .info-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+
+  .info-section h3 {
+    font-size: 1.25rem;
+    margin: 1.5rem 0 1rem;
+    color: #1a1a1a;
+  }
+
+  .info-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .info-section li {
+    padding: 0.5rem 0;
+  }
+
+  .info-section a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .info-section a:hover {
+    text-decoration: underline;
+  }
+
+  .faq-section {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem 1rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: #667eea;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .matches-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

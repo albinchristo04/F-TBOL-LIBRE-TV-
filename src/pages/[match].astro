@@ -1,0 +1,361 @@
+---
+import Base from '../layouts/Base.astro';
+import MatchStream from '../components/MatchStream.astro';
+import RelatedMatches from '../components/RelatedMatches.astro';
+import SportsEventSchema from '../components/SEO/SportsEventSchema.astro';
+import BroadcastEventSchema from '../components/SEO/BroadcastEventSchema.astro';
+import VideoObjectSchema from '../components/SEO/VideoObjectSchema.astro';
+import BreadcrumbSchema from '../components/SEO/BreadcrumbSchema.astro';
+import { fetchMatches } from '../lib/fetchMatches';
+
+export async function getStaticPaths() {
+  const matches = await fetchMatches();
+
+  return matches.map((match) => ({
+    params: { match: match.slug },
+    props: { match, allMatches: matches },
+  }));
+}
+
+const { match, allMatches } = Astro.props;
+
+// Title targets: "[Team A] vs [Team B] en vivo"
+const pageTitle = `${match.team_a} vs ${match.team_b} en vivo${match.league ? ' - ' + match.league : ''} | Fútbol Libre`;
+const pageDescription = `Ver ${match.team_a} vs ${match.team_b} en vivo hoy. ${match.league ? match.league : 'Transmisión en directo'}. Sin registrarse.`;
+const pageKeywords = `${match.team_a} en vivo, ${match.team_b} en vivo, ${match.league ? match.league + ' en vivo' : ''}, ver partido hoy`;
+
+// Get related matches
+const relatedMatches = allMatches
+  .filter(m => m.league === match.league && m.id !== match.id)
+  .slice(0, 3);
+
+// Breadcrumb items
+const breadcrumbItems = [
+  { name: 'Inicio', url: 'https://futbollibre.velcuri.io/' },
+  { name: match.league || 'Partidos', url: `https://futbollibre.velcuri.io/${match.league?.toLowerCase().replace(/\s+/g, '-')}-en-vivo/` },
+  { name: `${match.team_a} vs ${match.team_b}`, url: `https://futbollibre.velcuri.io/${match.slug}/` }
+];
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  lastModified={match.updated_at}
+>
+  <!-- Breadcrumb Navigation (SEO & UX) -->
+  <BreadcrumbSchema items={breadcrumbItems} />
+
+  <nav class="breadcrumb">
+    <a href="/">Inicio</a>
+    <span>/</span>
+    {match.league && (
+      <>
+        <a href={`/${match.league.toLowerCase().replace(/\s+/g, '-')}-en-vivo/`}>{match.league}</a>
+        <span>/</span>
+      </>
+    )}
+    <span>{match.team_a} vs {match.team_b}</span>
+  </nav>
+
+  <main class="match-container">
+    <!-- Match Header Section -->
+    <section class="match-header">
+      <div class="match-info">
+        <h1>{match.team_a} <span class="vs">vs</span> {match.team_b}</h1>
+        <div class="match-meta">
+          <span class="league">{match.league}</span>
+          <span class="date">{new Date(match.date).toLocaleDateString('es-ES', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          })}</span>
+          <span class="time">{match.time}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Stream Area -->
+    <section class="stream-section">
+      <div class="stream-container">
+        <MatchStream 
+          matchId={match.id}
+          iframeUrl={match.decoded_iframe_url}
+          teams={`${match.team_a} vs ${match.team_b}`}
+          league={match.league}
+        />
+      </div>
+
+      <!-- Match Details Sidebar -->
+      <aside class="match-details">
+        <div class="detail-card">
+          <h2>Información del Partido</h2>
+          <dl>
+            <dt>Local:</dt>
+            <dd>{match.team_a}</dd>
+
+            <dt>Visitante:</dt>
+            <dd>{match.team_b}</dd>
+
+            <dt>Liga:</dt>
+            <dd>{match.league}</dd>
+
+            <dt>Fecha:</dt>
+            <dd>{new Date(match.date).toLocaleDateString('es-ES')}</dd>
+
+            <dt>Hora:</dt>
+            <dd>{match.time}</dd>
+
+            {match.stadium && (
+              <>
+                <dt>Estadio:</dt>
+                <dd>{match.stadium}</dd>
+              </>
+            )}
+          </dl>
+        </div>
+
+        <div class="detail-card">
+          <h2>Opciones de Visualización</h2>
+          <ul>
+            <li>✓ En vivo en tiempo real</li>
+            <li>✓ Sin registrarse</li>
+            <li>✓ Compatible con móvil</li>
+            <li>✓ En HD</li>
+            <li>✓ Sin anuncios pop-up</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Related Matches Section -->
+    {relatedMatches.length > 0 && (
+      <section class="related-section">
+        <h2>Otros partidos en {match.league}</h2>
+        <RelatedMatches matches={relatedMatches} />
+      </section>
+    )}
+
+    <!-- Match Instructions Section (targets "cómo ver" long-tail keywords) -->
+    <section class="instructions">
+      <h2>Cómo Ver Este Partido en Vivo</h2>
+      <ol>
+        <li><strong>Haz clic en Play:</strong> El video comenzará automáticamente</li>
+        <li><strong>Selecciona la calidad:</strong> Si es necesario, ajusta la resolución</li>
+        <li><strong>Disfruta:</strong> No necesitas registrarte ni crear cuenta</li>
+        <li><strong>Comparte:</strong> Envía el link a tus amigos</li>
+      </ol>
+    </section>
+
+    <!-- FAQ for Match (targets "cómo ver partido hoy" etc) -->
+    <section class="faq-match">
+      <h2>Preguntas Frecuentes</h2>
+
+      <div class="faq-item">
+        <h3>¿A qué hora comienza el partido?</h3>
+        <p>El partido {match.team_a} vs {match.team_b} comenzará a las {match.time} hora local.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>¿Puedo ver el partido sin registrarme?</h3>
+        <p>Sí, en Fútbol Libre puedes ver todos los partidos sin necesidad de registrarte o crear una cuenta.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>¿Funciona en mi dispositivo?</h3>
+        <p>Sí, funciona en computadora, teléfono, tablet y smart TV. Solo necesitas un navegador y conexión a internet.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>¿La transmisión es en vivo?</h3>
+        <p>Sí, transmitimos el partido {match.team_a} vs {match.team_b} en vivo y en directo desde el inicio hasta el final.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Structured Data for Match (Bing Rich Results) -->
+  <SportsEventSchema match={match} />
+  <BroadcastEventSchema match={match} />
+  <VideoObjectSchema match={match} />
+</Base>
+
+<style>
+  .breadcrumb {
+    padding: 1rem 2rem;
+    background: #f9f9f9;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb a {
+    color: #667eea;
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .match-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .match-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .match-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .vs {
+    color: #999;
+    font-size: 1.2rem;
+  }
+
+  .match-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .league {
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 600;
+  }
+
+  .stream-section {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .stream-container {
+    background: #000;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .match-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .detail-card {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid #eee;
+  }
+
+  .detail-card h2 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .detail-card dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+  }
+
+  .detail-card dt {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .detail-card dd {
+    color: #666;
+  }
+
+  .detail-card ul {
+    list-style: none;
+  }
+
+  .detail-card li {
+    padding: 0.5rem 0;
+    color: #555;
+  }
+
+  .related-section {
+    margin-bottom: 3rem;
+  }
+
+  .related-section h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .instructions {
+    background: #f0f7ff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .instructions h2 {
+    margin-bottom: 1rem;
+  }
+
+  .instructions ol {
+    margin-left: 1.5rem;
+  }
+
+  .instructions li {
+    margin-bottom: 0.75rem;
+    line-height: 1.8;
+  }
+
+  .faq-match {
+    margin-bottom: 2rem;
+  }
+
+  .faq-match h2 {
+    margin-bottom: 1.5rem;
+  }
+
+  .faq-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .stream-section {
+      grid-template-columns: 1fr;
+    }
+
+    .match-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .match-meta {
+      gap: 1rem;
+      font-size: 0.95rem;
+    }
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+interface Props {
+  match: any;
+}
+
+const { match } = Astro.props;
+
+const startTime = new Date(match.date + 'T' + match.time).toISOString();
+const endTime = new Date(new Date(startTime).getTime() + 120 * 60000).toISOString(); // 2 hours
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BroadcastEvent",
+  "name": `${match.team_a} vs ${match.team_b} - Transmisión en Vivo`,
+  "description": `Transmisión en vivo de ${match.team_a} vs ${match.team_b} en ${match.league}`,
+  "isLiveBroadcast": true,
+  "startDate": startTime,
+  "endDate": endTime,
+  "publishedOn": {
+    "@type": "BroadcastService",
+    "name": "Fútbol Libre TV",
+    "url": "https://futbollibre.velcuri.io"
+  },
+  "videoFormat": "HD",
+  "broadcastOfEvent": {
+    "@type": "SportsEvent",
+    "name": `${match.team_a} vs ${match.team_b}`,
+    "startDate": startTime,
+    "endDate": endTime,
+    "homeTeam": {
+      "@type": "SportsTeam",
+      "name": match.team_a
+    },
+    "awayTeam": {
+      "@type": "SportsTeam",
+      "name": match.team_b
+    }
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

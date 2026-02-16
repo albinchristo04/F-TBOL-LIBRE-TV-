@@ -1,0 +1,163 @@
+---
+const currentYear = new Date().getFullYear();
+const footerLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/partidos-hoy/', label: 'Partidos Hoy' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/como-ver-futbol-sin-registrarse/', label: 'Cómo Ver Fútbol' },
+];
+const legalLinks = [
+  { href: '/terminos/', label: 'Términos de Uso' },
+  { href: '/privacidad/', label: 'Política de Privacidad' },
+];
+const socialLinks = [
+  { href: '#', label: 'Twitter', icon: '🐦' },
+  { href: '#', label: 'Facebook', icon: '📘' },
+  { href: '#', label: 'Instagram', icon: '📷' },
+];
+---
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Fútbol Libre TV</h3>
+        <p>Ver fútbol en vivo gratis. Transmisión en directo de todos tus partidos favoritos.</p>
+      </div>
+
+      <div class="footer-section">
+        <h3>Navegación</h3>
+        <ul class="footer-links">
+          {footerLinks.map(link => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul class="footer-links">
+          {legalLinks.map(link => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>Síguenos</h3>
+        <div class="social-links">
+          {socialLinks.map(link => (
+            <a href={link.href} class="social-link" aria-label={link.label}>
+              <span class="social-icon">{link.icon}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {currentYear} Fútbol Libre TV. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: #1a1a1a;
+    color: #ccc;
+    padding: 3rem 1rem 1rem;
+    margin-top: auto;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-section h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer-section p {
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-links li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.9rem;
+  }
+
+  .footer-links a:hover {
+    color: #667eea;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  .social-link:hover {
+    background: #667eea;
+    transform: translateY(-2px);
+  }
+
+  .social-icon {
+    font-size: 1.2rem;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer-content {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer-content {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

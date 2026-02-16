@@ -1,0 +1,358 @@
+---
+import Base from '../layouts/Base.astro';
+
+const pageTitle = 'Guía de la Champions League 2024 | Fútbol Libre TV';
+const pageDescription = 'Todo sobre la Champions League 2024: equipos, calendario, formato y dónde ver todos los partidos en vivo gratis.';
+const pageKeywords = 'Champions League 2024, guía Champions League, calendario Champions, equipos Champions, ver Champions League';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <section class="page-header">
+    <h1>Guía de la Champions League 2024</h1>
+    <p>Todo lo que necesitas saber sobre la edición 2024 de la Champions League</p>
+  </section>
+
+  <section class="content-section">
+    <h2>¿Qué es la Champions League?</h2>
+    <p>
+      La UEFA Champions League es la competición de clubes más importante de Europa.
+      Reúne a los mejores equipos de cada liga nacional en un torneo emocionante
+      que se disputa durante toda la temporada.
+    </p>
+
+    <h2>Formato de la Competición</h2>
+    <p>
+      La Champions League 2024 cuenta con un nuevo formato que incluye:
+    </p>
+
+    <ul class="format-list">
+      <li><strong>Fase de Grupos:</strong> 36 equipos en una sola tabla</li>
+      <li><strong>Octavos de Final:</strong> Los 16 mejores clasificados</li>
+      <li><strong>Cuartos de Final:</strong> 8 equipos</li>
+      <li><strong>Semifinales:</strong> 4 equipos</li>
+      <li><strong>Final:</strong> Un partido único</li>
+    </ul>
+
+    <h2>Equipos Participantes</h2>
+    <p>
+      Los mejores clubes de Europa participan en la Champions League 2024, incluyendo:
+    </p>
+
+    <div class="teams-grid">
+      <div class="team-card">
+        <h3>Real Madrid</h3>
+        <p>España</p>
+      </div>
+      <div class="team-card">
+        <h3>Manchester City</h3>
+        <p>Inglaterra</p>
+      </div>
+      <div class="team-card">
+        <h3>Bayern Munich</h3>
+        <p>Alemania</p>
+      </div>
+      <div class="team-card">
+        <h3>PSG</h3>
+        <p>Francia</p>
+      </div>
+      <div class="team-card">
+        <h3>Barcelona</h3>
+        <p>España</p>
+      </div>
+      <div class="team-card">
+        <h3>Liverpool</h3>
+        <p>Inglaterra</p>
+      </div>
+    </div>
+
+    <h2>Calendario de Partidos</h2>
+    <p>
+      Los partidos de la Champions League se juegan principalmente los martes y
+      miércoles, con horarios que varían según la fase de la competición.
+    </p>
+
+    <div class="schedule-box">
+      <h3>Próximos Partidos Importantes</h3>
+      <div class="match-item">
+        <span class="match-date">Martes, 21:00</span>
+        <span class="match-teams">Real Madrid vs Bayern Munich</span>
+      </div>
+      <div class="match-item">
+        <span class="match-date">Miércoles, 21:00</span>
+        <span class="match-teams">Manchester City vs PSG</span>
+      </div>
+    </div>
+
+    <h2>¿Dónde ver la Champions League?</h2>
+    <p>
+      En Fútbol Libre TV puedes ver todos los partidos de la Champions League en vivo
+      gratis. No necesitas registrarte ni crear cuenta. Solo selecciona el partido
+      que deseas ver y presiona play.
+    </p>
+
+    <h2>Historia de la Competición</h2>
+    <p>
+      La Champions League ha sido escenario de los momentos más épicos del fútbol
+      europeo. Desde la remontada del Barcelona contra el PSG hasta la final de
+      Kiev entre Real Madrid y Liverpool, cada edición ofrece momentos inolvidables.
+    </p>
+
+    <h2>Campeones Recientes</h2>
+    <ul class="winners-list">
+      <li>2023: Manchester City</li>
+      <li>2022: Real Madrid</li>
+      <li>2021: Chelsea</li>
+      <li>2020: Bayern Munich</li>
+      <li>2019: Liverpool</li>
+    </ul>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Cuándo es la final de la Champions League 2024?</h3>
+      <p>
+        La final de la Champions League 2024 se disputará el 1 de junio en el
+        Estadio Wembley de Londres.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cuál es el equipo con más títulos?</h3>
+      <p>
+        El Real Madrid es el equipo con más títulos de la Champions League, con
+        14 campeonatos en su historia.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo ver todos los partidos en vivo?</h3>
+      <p>
+        Sí, en Fútbol Libre TV transmitimos todos los partidos de la Champions
+        League en vivo y en directo.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <h2>¿Listo para ver la Champions League?</h2>
+    <p>Explora todos los partidos disponibles</p>
+    <a href="/champions-league-en-vivo/" class="cta-button">Ver Champions League →</a>
+  </section>
+</Base>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .content-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 0 2rem;
+  }
+
+  .content-section h2 {
+    font-size: 1.75rem;
+    margin: 2rem 0 1rem;
+    color: #1a1a1a;
+  }
+
+  .content-section p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .format-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  .format-list li {
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 0.5rem;
+    background: #f9f9f9;
+    border-left: 4px solid #667eea;
+    border-radius: 0.25rem;
+    color: #555;
+  }
+
+  .teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .team-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .team-card:hover {
+    border-color: #667eea;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+  }
+
+  .team-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+  }
+
+  .team-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .schedule-box {
+    background: #f0f7ff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .schedule-box h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+  }
+
+  .match-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .match-date {
+    font-weight: 600;
+    color: #667eea;
+  }
+
+  .match-teams {
+    color: #555;
+  }
+
+  .winners-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+  }
+
+  .winners-list li {
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 0.5rem;
+    background: #f9f9f9;
+    border-radius: 0.25rem;
+    color: #555;
+  }
+
+  .faq-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 2rem 1rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  .cta-section {
+    background: #f0f7ff;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin: 3rem auto;
+    max-width: 800px;
+    border-radius: 0.5rem;
+  }
+
+  .cta-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .cta-section p {
+    color: #666;
+    margin-bottom: 2rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .teams-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .match-item {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
+  }
+</style>

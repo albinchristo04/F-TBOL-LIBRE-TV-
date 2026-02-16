@@ -1,0 +1,201 @@
+---
+import Base from '../layouts/Base.astro';
+import MatchCard from '../components/MatchCard.astro';
+import { fetchMatches, getMatchesByLeague } from '../lib/fetchMatches';
+
+const allMatches = await fetchMatches();
+const premierMatches = await getMatchesByLeague('Premier League');
+
+const pageTitle = 'Premier League en Vivo Gratis | Transmisión Directa | Fútbol Libre TV';
+const pageDescription = 'Ver Premier League en vivo gratis. Transmisión en directo de todos los partidos. Sin registrarse. ⚽';
+const pageKeywords = 'Premier League en vivo, Premier League en vivo gratis, transmisión Premier League, partidos Premier League hoy';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <section class="league-hero">
+    <div class="league-content">
+      <h1>Premier League en Vivo</h1>
+      <p>Transmisión en directo de todos los partidos de Premier League sin registrarse</p>
+    </div>
+  </section>
+
+  <section class="league-container">
+    <h2>Partidos de Premier League en Directo</h2>
+
+    {premierMatches.length > 0 ? (
+      <div class="matches-grid">
+        {premierMatches.map(match => (
+          <MatchCard match={match} />
+        ))}
+      </div>
+    ) : (
+      <p class="no-matches">No hay partidos disponibles en este momento</p>
+    )}
+  </section>
+
+  <!-- Info Section with Keywords -->
+  <section class="league-info">
+    <h2>Sobre la Premier League</h2>
+    <p>
+      La Premier League es la competición de fútbol más importante de Inglaterra.
+      En Fútbol Libre TV puedes ver todos los partidos de Premier League en vivo gratis,
+      sin registrarte y desde cualquier dispositivo. Disfruta de la mejor transmisión
+      en directo del fútbol inglés.
+    </p>
+
+    <h3>¿Cómo ver Premier League en vivo?</h3>
+    <p>
+      Ver Premier League en vivo es muy fácil en Fútbol Libre TV. Solo selecciona el partido
+      que deseas ver y presiona play. No necesitas registrarte ni crear cuenta.
+    </p>
+
+    <h3>¿Qué equipos participan?</h3>
+    <p>
+      Los mejores clubes de Inglaterra participan en la Premier League, incluyendo equipos como
+      Manchester City, Liverpool, Arsenal, Chelsea, Manchester United y muchos más.
+    </p>
+
+    <h3>¿Cuándo se juegan los partidos?</h3>
+    <p>
+      Los partidos de Premier League se juegan principalmente los fines de semana, aunque
+      también hay partidos entre semana. Consulta la lista de arriba para ver los
+      horarios exactos de cada partido.
+    </p>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Puedo ver Premier League en vivo gratis?</h3>
+      <p>
+        Sí, en Fútbol Libre TV puedes ver todos los partidos de Premier League en vivo gratis.
+        No necesitas pagar ni registrarte.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Funciona en móvil?</h3>
+      <p>
+        Sí, Fútbol Libre TV funciona en todos los dispositivos: teléfono, tablet,
+        computadora y smart TV.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Necesito registrarme?</h3>
+      <p>
+        No, en Fútbol Libre TV no necesitas registrarte ni crear cuenta. Solo selecciona
+        el partido y presiona play.
+      </p>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SportsLeague",
+    "name": "Premier League",
+    "description": "Competición de fútbol más importante de Inglaterra",
+    "url": "https://futbollibre.velcuri.io/premier-league-en-vivo/"
+  }
+  </script>
+</Base>
+
+<style>
+  .league-hero {
+    background: linear-gradient(135deg, #38003c 0%, #00ff85 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .league-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .league-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .league-container h2 {
+    margin-bottom: 2rem;
+    font-size: 2rem;
+  }
+
+  .matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .league-info {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+  }
+
+  .league-info h2 {
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+  }
+
+  .league-info h3 {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .league-info p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  .faq-section {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem 1rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .league-hero h1 {
+      font-size: 2rem;
+    }
+
+    .matches-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,85 @@
+{
+  "primary": [
+    "Fútbol Libre",
+    "ver fútbol en vivo",
+    "fútbol en vivo gratis",
+    "partidos en vivo online",
+    "transmisión de fútbol"
+  ],
+  "secondary": [
+    "Liga MX en vivo",
+    "Champions League en vivo",
+    "Premier League en vivo",
+    "La Liga en vivo",
+    "Serie A en vivo",
+    "Copa Libertadores en vivo"
+  ],
+  "long_tail": [
+    "ver fútbol sin registrarse",
+    "cómo ver fútbol gratis",
+    "partidos de hoy en vivo",
+    "transmisión de fútbol online",
+    "ver partidos de fútbol hoy",
+    "fútbol en vivo por internet",
+    "streaming de fútbol gratis",
+    "partidos en vivo sin registro"
+  ],
+  "intent": {
+    "informational": [
+      "cómo ver fútbol en vivo",
+      "dónde ver partidos hoy",
+      "mejores sitios para ver fútbol",
+      "transmisión de fútbol legal"
+    ],
+    "navigational": [
+      "Fútbol Libre TV",
+      "futbollibre.velcuri.io",
+      "ver fútbol en Fútbol Libre",
+      "partidos en Fútbol Libre"
+    ],
+    "transactional": [
+      "ver partido hoy",
+      "transmisión en vivo",
+      "ver fútbol online",
+      "partido en vivo gratis"
+    ]
+  },
+  "by_league": {
+    "Liga MX": [
+      "Liga MX en vivo",
+      "ver Liga MX gratis",
+      "partidos Liga MX hoy",
+      "transmisión Liga MX online"
+    ],
+    "Champions League": [
+      "Champions League en vivo",
+      "ver Champions League gratis",
+      "partidos Champions hoy",
+      "transmisión Champions online"
+    ],
+    "Premier League": [
+      "Premier League en vivo",
+      "ver Premier League gratis",
+      "partidos Premier hoy",
+      "transmisión Premier online"
+    ],
+    "La Liga": [
+      "La Liga en vivo",
+      "ver La Liga gratis",
+      "partidos La Liga hoy",
+      "transmisión La Liga online"
+    ],
+    "Serie A": [
+      "Serie A en vivo",
+      "ver Serie A gratis",
+      "partidos Serie A hoy",
+      "transmisión Serie A online"
+    ],
+    "Copa Libertadores": [
+      "Copa Libertadores en vivo",
+      "ver Copa Libertadores gratis",
+      "partidos Copa Libertadores hoy",
+      "transmisión Copa Libertadores online"
+    ]
+  }
+}

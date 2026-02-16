@@ -1,0 +1,35 @@
+---
+import MatchCard from './MatchCard.astro';
+
+interface Props {
+  matches: any[];
+}
+
+const { matches } = Astro.props;
+---
+
+<div class="related-matches">
+  <div class="matches-grid">
+    {matches.map(match => (
+      <MatchCard match={match} />
+    ))}
+  </div>
+</div>
+
+<style>
+  .related-matches {
+    margin: 2rem 0;
+  }
+
+  .matches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .matches-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,212 @@
+---
+import Base from '../layouts/Base.astro';
+import FeaturedMatches from '../components/FeaturedMatches.astro';
+import LeagueGrid from '../components/LeagueGrid.astro';
+import SportsEventSchema from '../components/SEO/SportsEventSchema.astro';
+import { fetchMatches } from '../lib/fetchMatches';
+
+const matches = await fetchMatches();
+const featuredMatches = matches.slice(0, 8);
+
+const pageTitle = 'Ver Fútbol en Vivo Hoy Gratis | Fútbol Libre TV';
+const pageDescription = 'Mira fútbol en vivo gratis. Liga MX, Champions League, Premier League, La Liga, Serie A, Copa Libertadores. Sin registrarse. ⚽';
+const pageKeywords = 'Fútbol Libre, ver fútbol en vivo, fútbol en vivo gratis, partidos en vivo online, transmisión de fútbol, deportes en vivo';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <!-- Hero Section with Primary Keyword -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Ver Fútbol en Vivo Hoy Gratis 🎯</h1>
+      <p class="hero-subtitle">Transmisión en directo de todos tus partidos favoritos - Sin registrarse</p>
+
+      <!-- Search functionality for "Ver partidos hoy" intent -->
+      <div class="search-box">
+        <input 
+          type="text" 
+          placeholder="Buscar partido (equipo, liga, fecha)..."
+          id="matchSearch"
+          aria-label="Buscar partidos"
+        />
+        <button aria-label="Buscar">🔍</button>
+      </div>
+
+      <p class="hero-trust">✓ Gratis ✓ Sin anuncios ✓ En vivo ✓ Sin registrarse</p>
+    </div>
+  </section>
+
+  <!-- Featured Matches (Recent matches from API) -->
+  <section class="featured-section">
+    <h2>Partidos en Directo Ahora</h2>
+    <FeaturedMatches matches={featuredMatches} />
+  </section>
+
+  <!-- Browse by League (Secondary Keywords) -->
+  <section class="leagues-section">
+    <h2>Ver Fútbol por Liga</h2>
+    <p class="section-intro">Selecciona tu liga favorita y disfruta de la transmisión en vivo</p>
+    <LeagueGrid />
+  </section>
+
+  <!-- Latest Results Section -->
+  <section class="results-section">
+    <h2>Últimos Resultados</h2>
+    <!-- Display recent completed matches -->
+  </section>
+
+  <!-- FAQ Section (Targets long-tail keywords) -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Cómo ver fútbol en vivo sin registrarse?</h3>
+      <p>En Fútbol Libre TV no necesitas crear cuenta ni registrarte. Solo selecciona el partido y presiona play. ¡Es así de simple!</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo ver Liga MX en vivo gratis?</h3>
+      <p>Sí, transmitimos todos los partidos de Liga MX en vivo sin costo. Accede desde cualquier dispositivo.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cómo ver Champions League en vivo?</h3>
+      <p>Transmitimos todos los partidos de Champions League en directo. Solo busca el partido en nuestro sitio y haz clic para ver.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Funciona en móvil y smart TV?</h3>
+      <p>Sí, Fútbol Libre TV funciona en todos los dispositivos: teléfono, tablet, computadora y smart TV.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Necesito VPN para usar Fútbol Libre TV?</h3>
+      <p>No, nuestro servicio funciona desde cualquier país. No se requiere VPN.</p>
+    </div>
+  </section>
+
+  <!-- Structured Data for Homepage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Fútbol Libre TV",
+    "url": "https://futbollibre.velcuri.io",
+    "description": "Ver fútbol en vivo gratis. Liga MX, Champions League, Premier League y más",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://futbollibre.velcuri.io/buscar?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+</Base>
+
+<style>
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+  }
+
+  .search-box {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto 1.5rem;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .search-box input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    outline: none;
+    color: #333;
+  }
+
+  .search-box button {
+    padding: 0.75rem 1.5rem;
+    background: #667eea;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  .hero-trust {
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+
+  .featured-section,
+  .leagues-section,
+  .results-section,
+  .faq-section {
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .featured-section h2,
+  .leagues-section h2,
+  .results-section h2,
+  .faq-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+  }
+
+  .section-intro {
+    margin-bottom: 2rem;
+    color: #666;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #667eea;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,47 @@
+---
+interface Props {
+  match: any;
+}
+
+const { match } = Astro.props;
+
+const startTime = new Date(match.date + 'T' + match.time).toISOString();
+const endTime = new Date(new Date(startTime).getTime() + 120 * 60000).toISOString(); // 2 hours
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SportsEvent",
+  "name": `${match.team_a} vs ${match.team_b}`,
+  "description": `Transmisión en vivo de ${match.team_a} vs ${match.team_b} en ${match.league}`,
+  "startDate": startTime,
+  "endDate": endTime,
+  "eventStatus": "https://schema.org/EventScheduled",
+  "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+  "location": {
+    "@type": "VirtualLocation",
+    "url": `https://futbollibre.velcuri.io/${match.slug}/`
+  },
+  "organizer": {
+    "@type": "Organization",
+    "name": match.league || "Fútbol Libre TV"
+  },
+  "performer": [
+    {
+      "@type": "SportsTeam",
+      "name": match.team_a
+    },
+    {
+      "@type": "SportsTeam",
+      "name": match.team_b
+    }
+  ],
+  "offers": {
+    "@type": "Offer",
+    "url": `https://futbollibre.velcuri.io/${match.slug}/`,
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

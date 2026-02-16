@@ -1,0 +1,54 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  robots?: string;
+  keywords?: string;
+  lastModified?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage,
+  ogType,
+  robots,
+  keywords,
+  lastModified,
+} = Astro.props;
+---
+
+<Base
+  title={title}
+  description={description}
+  canonical={canonical}
+  ogImage={ogImage}
+  ogType={ogType}
+  robots={robots}
+  keywords={keywords}
+  lastModified={lastModified}
+>
+  <div class="page-content">
+    <slot />
+  </div>
+</Base>
+
+<style>
+  .page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .page-content {
+      padding: 3rem 2rem;
+    }
+  }
+</style>

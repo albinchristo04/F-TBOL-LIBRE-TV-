@@ -1,0 +1,27 @@
+{
+  "name": "futbol-libre-tv",
+  "version": "1.0.0",
+  "description": "Fútbol Libre TV - Ver fútbol en vivo gratis",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "fetch:matches": "node scripts/fetchMatches.js",
+    "generate:sitemap": "node scripts/generateSitemap.js",
+    "bing:ping": "node scripts/bingPing.js",
+    "bing:sitemap": "node scripts/submitBingSitemap.js",
+    "seo:monitor": "node scripts/seoMonitoring.js"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0",
+    "@astrojs/sitemap": "^3.0.0",
+    "astro-compress": "^2.0.0",
+    "astro-icon": "^1.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.0"
+  }
+}

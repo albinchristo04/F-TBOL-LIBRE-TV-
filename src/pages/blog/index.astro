@@ -1,0 +1,287 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const pageTitle = 'Blog de Fútbol Libre TV | Previews, Recaps y Más';
+const pageDescription = 'Lee las últimas noticias, previews de partidos y recaps de Fútbol Libre TV. Análisis de Liga MX, Champions League y más.';
+const pageKeywords = 'blog de fútbol, previews de partidos, recaps de fútbol, análisis de fútbol, noticias de fútbol';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <section class="blog-header">
+    <h1>Blog de Fútbol Libre TV</h1>
+    <p>Previews de partidos, recaps, análisis y las últimas noticias del mundo del fútbol</p>
+  </section>
+
+  <section class="blog-categories">
+    <h2>Categorías</h2>
+    <div class="category-grid">
+      <a href="/blog/previews/" class="category-card">
+        <h3>Previews de Partidos</h3>
+        <p>Análisis previos a los partidos más importantes</p>
+      </a>
+      <a href="/blog/recaps/" class="category-card">
+        <h3>Recaps de Partidos</h3>
+        <p>Resúmenes y análisis de los partidos jugados</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="blog-content">
+    <h2>Últimos Artículos</h2>
+    <div class="articles-grid">
+      <!-- Example articles - in production these would be fetched from content/blog -->
+      <article class="article-card">
+        <div class="article-image">
+          <img src="/og-image.jpg" alt="Preview del partido" />
+        </div>
+        <div class="article-content">
+          <span class="article-category">Preview</span>
+          <h3>Previa: Real Madrid vs Barcelona</h3>
+          <p>Análisis completo del clásico español que se jugará este fin de semana</p>
+          <a href="/blog/preview-real-madrid-barcelona/" class="read-more">Leer más →</a>
+        </div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-image">
+          <img src="/og-image.jpg" alt="Recap del partido" />
+        </div>
+        <div class="article-content">
+          <span class="article-category">Recap</span>
+          <h3>Resumen: América vs Chivas</h3>
+          <p>El clásico mexicano terminó con un resultado emocionante</p>
+          <a href="/blog/recap-america-chivas/" class="read-more">Leer más →</a>
+        </div>
+      </article>
+
+      <article class="article-card">
+        <div class="article-image">
+          <img src="/og-image.jpg" alt="Análisis de liga" />
+        </div>
+        <div class="article-content">
+          <span class="article-category">Análisis</span>
+          <h3>Guía de la Champions League 2024</h3>
+          <p>Todo lo que necesitas saber sobre la edición de este año</p>
+          <a href="/blog/guia-champions-league-2024/" class="read-more">Leer más →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Con qué frecuencia publican artículos?</h3>
+      <p>
+        Publicamos nuevos artículos regularmente, incluyendo previews antes de los partidos
+        importantes y recaps después de los mismos.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Puedo sugerir temas para artículos?</h3>
+      <p>
+        Sí, puedes sugerir temas a través de nuestras redes sociales. Tomamos en cuenta
+        las sugerencias de nuestra comunidad.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .blog-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .blog-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-categories {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+  }
+
+  .blog-categories h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .category-card {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+
+  .category-card:hover {
+    border-color: #667eea;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+  }
+
+  .category-card h3 {
+    color: #667eea;
+    margin-bottom: 0.75rem;
+  }
+
+  .category-card p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .blog-content {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+  }
+
+  .blog-content h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .article-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+  }
+
+  .article-card:hover {
+    border-color: #667eea;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+  }
+
+  .article-image {
+    width: 100%;
+    padding-top: 56.25%;
+    position: relative;
+    background: #f0f0f0;
+  }
+
+  .article-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .article-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .article-category {
+    display: inline-block;
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    align-self: flex-start;
+  }
+
+  .article-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: #1a1a1a;
+  }
+
+  .article-content p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    flex: 1;
+  }
+
+  .read-more {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .read-more:hover {
+    color: #764ba2;
+  }
+
+  .faq-section {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem 1rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .blog-header h1 {
+      font-size: 2rem;
+    }
+
+    .category-grid,
+    .articles-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

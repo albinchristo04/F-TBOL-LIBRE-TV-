@@ -1,0 +1,86 @@
+---
+interface Props {
+  matchId: string;
+  iframeUrl: string;
+  teams: string;
+  league: string;
+}
+
+const { matchId, iframeUrl, teams, league } = Astro.props;
+---
+
+<div class="stream-wrapper">
+  {iframeUrl ? (
+    <>
+      <iframe
+        id={`stream-${matchId}`}
+        src={iframeUrl}
+        title={`${teams} - ${league}`}
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowFullScreen
+        loading="lazy"
+        class="match-iframe"
+      ></iframe>
+
+      <noscript>
+        <p class="noscript-message">
+          Para ver el partido, por favor habilita JavaScript en tu navegador
+        </p>
+      </noscript>
+    </>
+  ) : (
+    <div class="no-stream">
+      <p>⚠️ Transmisión no disponible en este momento</p>
+      <p>Por favor, intenta de nuevo más tarde o selecciona otro partido</p>
+    </div>
+  )}
+</div>
+
+<style>
+  .stream-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    background: #000;
+    border-radius: 0.5rem;
+  }
+
+  .match-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .noscript-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    width: 80%;
+  }
+
+  .no-stream {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ccc;
+    text-align: center;
+  }
+
+  .no-stream p {
+    margin: 0.5rem 0;
+  }
+</style>

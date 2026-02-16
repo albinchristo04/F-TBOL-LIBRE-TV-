@@ -1,0 +1,41 @@
+name: Submit Sitemap to Bing
+
+on:
+  workflow_run:
+    workflows: ["Build and Deploy to Cloudflare Pages"]
+    types:
+      - completed
+  schedule:
+    # Submit sitemap daily
+    - cron: '0 6 * * *'
+
+jobs:
+  submit-sitemap:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Submit sitemap to Bing
+        run: node scripts/submitBingSitemap.js
+        env:
+          BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+          SITE_URL: https://futbollibre.velcuri.io
+
+      - name: Verify sitemap submission
+        run: |
+          echo "Sitemap submitted to Bing"
+          echo "Monitor at: https://www.bing.com/webmaster/home/mysites"
+
+      - name: Log submission result
+        run: |
+          echo "::notice title=Bing Sitemap::Submitted futbollibre.velcuri.io sitemap to Bing at $(date)"

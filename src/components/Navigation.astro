@@ -1,0 +1,89 @@
+---
+const navItems = [
+  { href: '/', label: 'Inicio' },
+  { href: '/partidos-hoy/', label: 'Partidos Hoy' },
+  { href: '/liga-mx-en-vivo/', label: 'Liga MX' },
+  { href: '/champions-league-en-vivo/', label: 'Champions League' },
+  { href: '/premier-league-en-vivo/', label: 'Premier League' },
+  { href: '/la-liga-en-vivo/', label: 'La Liga' },
+  { href: '/serie-a-en-vivo/', label: 'Serie A' },
+  { href: '/copa-libertadores-en-vivo/', label: 'Copa Libertadores' },
+  { href: '/blog/', label: 'Blog' },
+];
+---
+
+<nav class="site-nav">
+  <div class="nav-container">
+    <ul class="nav-list">
+      {navItems.map(item => (
+        <li class="nav-item">
+          <a href={item.href} class="nav-link">
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    background: #1a1a1a;
+    color: white;
+    padding: 0.75rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0;
+    margin: 0;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .nav-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-item {
+    flex-shrink: 0;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .nav-list {
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .nav-link {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+    }
+  }
+</style>

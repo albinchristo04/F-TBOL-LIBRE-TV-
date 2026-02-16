@@ -1,0 +1,286 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const pageTitle = 'Recaps de Partidos | Fútbol Libre TV';
+const pageDescription = 'Lee los resúmenes y análisis de los partidos más importantes. Recaps de Liga MX, Champions League, Premier League y más.';
+const pageKeywords = 'recaps de partidos, resúmenes de fútbol, análisis post-partido, crónicas de fútbol';
+---
+
+<Base
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+>
+  <section class="page-header">
+    <h1>Recaps de Partidos</h1>
+    <p>Resúmenes completos y análisis de los partidos más importantes del fútbol mundial</p>
+  </section>
+
+  <section class="recaps-list">
+    <!-- Example recaps - in production these would be fetched from content/blog/match-recaps -->
+    <article class="recap-card">
+      <div class="recap-header">
+        <span class="league-badge">Liga MX</span>
+        <time class="recap-date">Ayer</time>
+      </div>
+      <h2>Resumen: América 2-1 Chivas</h2>
+      <p>
+        El clásico más importante de México terminó con victoria para las Águilas.
+        Un gol en los últimos minutos decidió el encuentro.
+      </p>
+      <div class="recap-score">
+        <span class="score">2 - 1</span>
+        <span class="result">Final</span>
+      </div>
+      <a href="/blog/recap-america-chivas/" class="read-more">Leer análisis completo →</a>
+    </article>
+
+    <article class="recap-card">
+      <div class="recap-header">
+        <span class="league-badge">Champions League</span>
+        <time class="recap-date">Hace 2 días</time>
+      </div>
+      <h2>Resumen: Real Madrid 3-2 Bayern Munich</h2>
+      <p>
+        Un partido épico en el Bernabéu. El Madrid remontó y se quedó con la victoria
+        en los últimos minutos del encuentro.
+      </p>
+      <div class="recap-score">
+        <span class="score">3 - 2</span>
+        <span class="result">Final</span>
+      </div>
+      <a href="/blog/recap-real-madrid-bayern/" class="read-more">Leer análisis completo →</a>
+    </article>
+
+    <article class="recap-card">
+      <div class="recap-header">
+        <span class="league-badge">Premier League</span>
+        <time class="recap-date">Hace 3 días</time>
+      </div>
+      <h2>Resumen: Manchester City 1-1 Liverpool</h2>
+      <p>
+        Un partido intenso terminó en empate. Ambos equipos mostraron gran nivel y
+        se repartieron los puntos en el Etihad.
+      </p>
+      <div class="recap-score">
+        <span class="score">1 - 1</span>
+        <span class="result">Final</span>
+      </div>
+      <a href="/blog/recap-manchester-liverpool/" class="read-more">Leer análisis completo →</a>
+    </article>
+  </section>
+
+  <section class="info-section">
+    <h2>Sobre Nuestros Recaps</h2>
+    <p>
+      Nuestros recaps de partidos ofrecen resúmenes detallados de los encuentros más
+      importantes del fútbol mundial. Incluimos:
+    </p>
+    <ul>
+      <li>Resumen del desarrollo del partido</li>
+      <li>Análisis de los goles y jugadas clave</li>
+      <li>Evaluación del rendimiento de los equipos</li>
+      <li>Mejores jugadores del encuentro</li>
+      <li>Implicaciones en la tabla de posiciones</li>
+    </ul>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+    <div class="faq-item">
+      <h3>¿Con qué rapidez publican los recaps?</h3>
+      <p>
+        Publicamos nuestros recaps dentro de las 24 horas posteriores a cada partido
+        importante, para que puedas leer el análisis mientras está fresco en tu mente.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué partidos cubren?</h3>
+      <p>
+        Cubrimos los partidos más importantes de todas las ligas principales:
+        Liga MX, Champions League, Premier League, La Liga, Serie A y Copa Libertadores.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .recaps-list {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 0 2rem;
+  }
+
+  .recap-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .recap-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+  }
+
+  .recap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .league-badge {
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .recap-date {
+    color: #999;
+    font-size: 0.85rem;
+  }
+
+  .recap-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .recap-card p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .recap-score {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .score {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #667eea;
+  }
+
+  .result {
+    background: #667eea;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .read-more {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .read-more:hover {
+    color: #764ba2;
+  }
+
+  .info-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+  }
+
+  .info-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+  }
+
+  .info-section p {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .info-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .info-section li {
+    padding: 0.5rem 0;
+    color: #555;
+    line-height: 1.8;
+  }
+
+  .info-section li::before {
+    content: "✓ ";
+    color: #667eea;
+    font-weight: 700;
+  }
+
+  .faq-section {
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    padding: 2rem 1rem;
+  }
+
+  .faq-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .faq-item {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+  }
+
+  .faq-item h3 {
+    color: #667eea;
+    margin-bottom: 0.5rem;
+  }
+
+  .faq-item p {
+    color: #555;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .score {
+      font-size: 1.5rem;
+    }
+  }
+</style>
