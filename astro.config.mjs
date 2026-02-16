@@ -32,19 +32,7 @@ export default defineConfig({
 
   // Integrations
   integrations: [
-    sitemap({
-      // Generate sitemap for all dynamic pages
-      filter: (page) => {
-        // Filter out admin page and any undefined/null pages
-        if (!page || page === 'https://futbollibre.velcuri.io/admin') {
-          return false;
-        }
-        return true;
-      },
-      changefreq: 'daily',
-      priority: 0.7,
-      lastmod: new Date(),
-    }),
+    // Removed sitemap plugin since we're handling sitemap generation manually in sitemap.xml.ts
     compress({
       CSS: true,
       HTML: true,
