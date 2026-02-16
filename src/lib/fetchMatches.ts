@@ -56,21 +56,30 @@ export async function fetchMatches(forceRefresh = false): Promise<Match[]> {
       }
     }
 
-    // Enhance matches with computed fields
-    const enhancedMatches: Match[] = matches.map((match: any) => ({
-      ...match,
-      // Ensure all required fields
-      id: match.id || `${match.team_a}-${match.team_b}-${match.date}`.replace(/\s+/g, '-'),
-      slug: `${match.team_a}-vs-${match.team_b}-${match.date}`.toLowerCase().replace(/\s+/g, '-'),
-      updated_at: new Date().toISOString(),
+    // Enhance matches with computed fields and filter out invalid matches
+    const enhancedMatches: Match[] = matches
+      .filter((match: any) => {
+        // Validate required fields
+        if (!match.team_a || !match.team_b || !match.date || !match.time) {
+          console.error('Invalid match data, skipping:', match);
+          return false;
+        }
+        return true;
+      })
+      .map((match: any) => ({
+        ...match,
+        // Ensure all required fields
+        id: match.id || `${match.team_a}-${match.team_b}-${match.date}`.replace(/\s+/g, '-'),
+        slug: `${match.team_a}-vs-${match.team_b}-${match.date}`.toLowerCase().replace(/\s+/g, '-'),
+        updated_at: new Date().toISOString(),
 
-      // SEO optimizations
-      seo_title: `${match.team_a} vs ${match.team_b}${match.league ? ' - ' + match.league : ''} en vivo`,
-      seo_description: `Ver ${match.team_a} vs ${match.team_b} en vivo${match.league ? ' - ' + match.league : ''}. Transmisión en directo sin registrarse.`,
+        // SEO optimizations
+        seo_title: `${match.team_a} vs ${match.team_b}${match.league ? ' - ' + match.league : ''} en vivo`,
+        seo_description: `Ver ${match.team_a} vs ${match.team_b} en vivo${match.league ? ' - ' + match.league : ''}. Transmisión en directo sin registrarse.`,
 
-      // Ensure decoded_iframe_url exists
-      decoded_iframe_url: match.decoded_iframe_url || match.iframe_url || '',
-    }));
+        // Ensure decoded_iframe_url exists
+        decoded_iframe_url: match.decoded_iframe_url || match.iframe_url || '',
+      }));
 
     // Sort by date
     enhancedMatches.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());

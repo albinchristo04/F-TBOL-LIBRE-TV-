@@ -5,6 +5,12 @@ interface Props {
 
 const { match } = Astro.props;
 
+// Validate required fields
+if (!match.date || !match.time) {
+  console.error('Missing required fields for SportsEventSchema:', match);
+  return null;
+}
+
 const startTime = new Date(match.date + 'T' + match.time).toISOString();
 const endTime = new Date(new Date(startTime).getTime() + 120 * 60000).toISOString(); // 2 hours
 
