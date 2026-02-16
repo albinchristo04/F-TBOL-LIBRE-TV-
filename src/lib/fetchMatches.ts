@@ -46,10 +46,10 @@ export async function fetchMatches(forceRefresh = false): Promise<Match[]> {
 
     // If response is not an array, try to extract matches from common formats
     if (!Array.isArray(matches)) {
-      if (matches.matches && Array.isArray(matches.matches)) {
-        matches = matches.matches;
-      } else if (matches.data && Array.isArray(matches.data)) {
+      if (matches.data && Array.isArray(matches.data)) {
         matches = matches.data;
+      } else if (matches.matches && Array.isArray(matches.matches)) {
+        matches = matches.matches;
       } else {
         console.error('Unexpected response format:', matches);
         return [];
@@ -59,27 +59,57 @@ export async function fetchMatches(forceRefresh = false): Promise<Match[]> {
     // Enhance matches with computed fields and filter out invalid matches
     const enhancedMatches: Match[] = matches
       .filter((match: any) => {
+        // Extract data from attributes if present
+        const matchData = match.attributes || match;
+
+        // Parse team names from diary_description (format: "League: 
+Team A vs Team B")
+        const description = matchData.diary_description || '';
+        const teamMatch = description.match(/[^:]*:\s*
+?(.+?)\s+vs\s+(.+)/);
+
         // Validate required fields
-        if (!match.team_a || !match.team_b || !match.date || !match.time) {
+        if (!teamMatch || !matchData.date_diary || !matchData.diary_hour) {
           console.error('Invalid match data, skipping:', match);
           return false;
         }
+
         return true;
       })
-      .map((match: any) => ({
-        ...match,
-        // Ensure all required fields
-        id: match.id || `${match.team_a}-${match.team_b}-${match.date}`.replace(/\s+/g, '-'),
-        slug: `${match.team_a}-vs-${match.team_b}-${match.date}`.toLowerCase().replace(/\s+/g, '-'),
-        updated_at: new Date().toISOString(),
+      .map((match: any) => {
+        // Extract data from attributes if present
+        const matchData = match.attributes || match;
 
-        // SEO optimizations
-        seo_title: `${match.team_a} vs ${match.team_b}${match.league ? ' - ' + match.league : ''} en vivo`,
-        seo_description: `Ver ${match.team_a} vs ${match.team_b} en vivo${match.league ? ' - ' + match.league : ''}. Transmisión en directo sin registrarse.`,
+        // Parse team names and league from diary_description
+        const description = matchData.diary_description || '';
+        const teamMatch = description.match(/([^:]*):\s*
+?(.+?)\s+vs\s+(.+)/);
 
-        // Ensure decoded_iframe_url exists
-        decoded_iframe_url: match.decoded_iframe_url || match.iframe_url || '',
-      }));
+        const league = teamMatch ? teamMatch[1].trim() : '';
+        const teamA = teamMatch ? teamMatch[2].trim() : '';
+        const teamB = teamMatch ? teamMatch[3].trim() : '';
+
+        // Get first embed URL if available
+        const embeds = matchData.embeds?.data || [];
+        const firstEmbed = embeds[0]?.attributes;
+        const decodedIframeUrl = firstEmbed?.decoded_iframe_url || '';
+
+        return {
+          id: match.id || matchData.id,
+          team_a: teamA,
+          team_b: teamB,
+          league: league,
+          date: matchData.date_diary,
+          time: matchData.diary_hour,
+          stadium: matchData.stadium || '',
+          decoded_iframe_url: decodedIframeUrl,
+          iframe_url: firstEmbed?.embed_iframe || '',
+          slug: `${teamA.toLowerCase().replace(/\s+/g, '-')}-vs-${teamB.toLowerCase().replace(/\s+/g, '-')}-${matchData.date_diary}`,
+          updated_at: matchData.updatedAt || new Date().toISOString(),
+          seo_title: `${teamA} vs ${teamB}${league ? ' - ' + league : ''} en vivo`,
+          seo_description: `Ver ${teamA} vs ${teamB} en vivo${league ? ' - ' + league : ''}. Transmisión en directo sin registrarse.`,
+        };
+      });
 
     // Sort by date
     enhancedMatches.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
