@@ -34,7 +34,13 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Generate sitemap for all dynamic pages
-      filter: (page) => page !== 'https://futbollibre.velcuri.io/admin',
+      filter: (page) => {
+        // Filter out admin page and any undefined/null pages
+        if (!page || page === 'https://futbollibre.velcuri.io/admin') {
+          return false;
+        }
+        return true;
+      },
       changefreq: 'daily',
       priority: 0.7,
       lastmod: new Date(),
