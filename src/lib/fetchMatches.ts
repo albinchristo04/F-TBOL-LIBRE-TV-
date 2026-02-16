@@ -65,8 +65,7 @@ export async function fetchMatches(forceRefresh = false): Promise<Match[]> {
         // Parse team names from diary_description (format: "League: 
 Team A vs Team B")
         const description = matchData.diary_description || '';
-        const teamMatch = description.match(/[^:]*:\s*
-?(.+?)\s+vs\s+(.+)/);
+        const teamMatch = description.match(/[^:]*:\s*(.+?)\s+vs\s+(.+)/);
 
         // Validate required fields
         if (!teamMatch || !matchData.date_diary || !matchData.diary_hour) {
@@ -82,8 +81,7 @@ Team A vs Team B")
 
         // Parse team names and league from diary_description
         const description = matchData.diary_description || '';
-        const teamMatch = description.match(/([^:]*):\s*
-?(.+?)\s+vs\s+(.+)/);
+        const teamMatch = description.match(/([^:]*):\s*(.+?)\s+vs\s+(.+)/);
 
         const league = teamMatch ? teamMatch[1].trim() : '';
         const teamA = teamMatch ? teamMatch[2].trim() : '';
