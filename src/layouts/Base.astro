@@ -66,7 +66,16 @@ const seoTitle = title.length > 60 ? title.substring(0, 57) + '...' : title;
     <meta http-equiv="last-modified" content={lastModified} />
 
     <!-- Bing verification (replace with actual code from Webmaster Tools) -->
-<meta name="msvalidate.01" content="F01125A32DD0550253E1CD24EAA0B21D" />
+    <meta name="msvalidate.01" content="F01125A32DD0550253E1CD24EAA0B21D" />
+
+    <!-- Clarity tracking code for https://futbollibre.velcuri.io/ -->
+    <script>
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "vi7s2v2v6d");
+    </script>
 
     <!-- Favicon and site icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
