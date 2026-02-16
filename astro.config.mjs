@@ -49,11 +49,6 @@ export default defineConfig({
     icon(),
   ],
 
-  // Enable experimental features for better SEO
-  experimental: {
-    assets: true,
-  },
-
   // Output configuration for static site
   output: 'static',
 
