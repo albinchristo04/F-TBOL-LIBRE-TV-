@@ -63,7 +63,7 @@ export async function fetchMatches(forceRefresh = false): Promise<Match[]> {
         const matchData = match.attributes || match;
 
         // Parse team names from diary_description (format: "League: 
-Team A vs Team B")
+// Team A vs Team B")
         const description = matchData.diary_description || '';
         const teamMatch = description.match(/[^:]*:\s*(.+?)\s+vs\s+(.+)/);
 
