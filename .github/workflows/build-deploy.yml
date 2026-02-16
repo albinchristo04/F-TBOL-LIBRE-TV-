@@ -46,6 +46,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # NOTE: Ensure the project 'f-tbol-libre-tv' exists in your Cloudflare Pages dashboard
-          # Visit https://dash.cloudflare.com/ to create the project if needed
-          command: pages deploy ./dist --project-name="f-tbol-libre-tv" --branch="main"
+          # Project already exists: https://dash.cloudflare.com/f1cfb9d206fb2c60b776212b81159c6b/pages/view/f-tbol-libre-tv
+          command: pages deploy ./dist --project-name="f-tbol-libre-tv" --branch="main" --commit-dirty=true
