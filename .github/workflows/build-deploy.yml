@@ -46,6 +46,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: futbol-libre-tv
+          # NOTE: Ensure the project 'f-tbol-libre-tv' exists in your Cloudflare Pages dashboard
+          # Visit https://dash.cloudflare.com/ to create the project if needed
+          projectName: f-tbol-libre-tv
           directory: ./dist
           branch: main
