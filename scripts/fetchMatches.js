@@ -16,23 +16,57 @@ async function fetchMatches() {
       }
     });
 
-    const matches = response.data;
+    // Handle different response formats
+    let matches = response.data;
 
-    // Enhance matches with computed fields
-    const enhancedMatches = matches.map(match => ({
-      ...match,
-      // Ensure all required fields
-      id: match.id || `${match.team_a}-${match.team_b}-${match.date}`.replace(/\s+/g, '-'),
-      slug: `${match.team_a}-vs-${match.team_b}-${match.date}`.toLowerCase().replace(/\s+/g, '-'),
-      updated_at: new Date().toISOString(),
+    // If response is not an array, try to extract matches from common formats
+    if (!Array.isArray(matches)) {
+      if (matches.data && Array.isArray(matches.data)) {
+        matches = matches.data;
+      } else if (matches.matches && Array.isArray(matches.matches)) {
+        matches = matches.matches;
+      } else {
+        console.error('Unexpected response format:', typeof matches, Object.keys(matches));
+        return [];
+      }
+    }
 
-      // SEO optimizations
-      seo_title: `${match.team_a} vs ${match.team_b}${match.league ? ' - ' + match.league : ''} en vivo`,
-      seo_description: `Ver ${match.team_a} vs ${match.team_b} en vivo${match.league ? ' - ' + match.league : ''}. Transmisión en directo sin registrarse.`,
+    // Enhance matches with computed fields and extract data from attributes
+    const enhancedMatches = matches.map(match => {
+      // Extract data from attributes if present
+      const matchData = match.attributes || match;
 
-      // Ensure decoded_iframe_url exists
-      decoded_iframe_url: match.decoded_iframe_url || match.iframe_url || '',
-    }));
+      // Parse team names and league from diary_description
+      const description = matchData.diary_description || '';
+      const teamMatch = description.match(/([^:]*):\s*(.+?)\s+vs\s+(.+)/);
+      
+      const league = teamMatch ? teamMatch[1].trim() : '';
+      const teamA = teamMatch ? teamMatch[2].trim() : '';
+      const teamB = teamMatch ? teamMatch[3].trim() : '';
+
+      // Get first embed URL if available
+      const embeds = matchData.embeds?.data || [];
+      const firstEmbed = embeds[0]?.attributes;
+      const decodedIframeUrl = firstEmbed?.decoded_iframe_url || '';
+
+      return {
+        ...match,
+        // Override with parsed values
+        id: match.id || matchData.id,
+        team_a: teamA,
+        team_b: teamB,
+        league: league,
+        date: matchData.date_diary,
+        time: matchData.diary_hour,
+        stadium: matchData.stadium || '',
+        decoded_iframe_url: decodedIframeUrl,
+        iframe_url: firstEmbed?.embed_iframe || '',
+        slug: `${teamA.toLowerCase().replace(/\s+/g, '-')}-vs-${teamB.toLowerCase().replace(/\s+/g, '-')}-${matchData.date_diary}`,
+        updated_at: matchData.updatedAt || new Date().toISOString(),
+        seo_title: `${teamA} vs ${teamB}${league ? ' - ' + league : ''} en vivo`,
+        seo_description: `Ver ${teamA} vs ${teamB} en vivo${league ? ' - ' + league : ''}. Transmisión en directo sin registrarse.`,
+      };
+    });
 
     // Sort by date
     enhancedMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -81,7 +115,14 @@ async function fetchMatches() {
 
 // Run if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  await fetchMatches();
+  fetchMatches()
+    .then(() => {
+      console.log('Fetch matches completed successfully');
+    })
+    .catch(error => {
+      console.error('Error in fetchMatches:', error);
+      process.exit(1);
+    });
 }
 
 export { fetchMatches };
