@@ -31,13 +31,11 @@ async function monitorSEO() {
         timeout: 10000,
       });
 
-      console.log('
-✓ Successfully retrieved Bing Webmaster data');
+      console.log('\n✓ Successfully retrieved Bing Webmaster data');
 
       // Log top queries
       if (response.data?.d?.TopQueries) {
-        console.log('
-🔍 Top Search Queries:');
+        console.log('\n🔍 Top Search Queries:');
         response.data.d.TopQueries.slice(0, 10).forEach((query, i) => {
           console.log(`  ${i+1}. "${query.Query}" - ${query.Clicks} clicks, Position: ${query.AvgPosition?.toFixed(1)}`);
         });
@@ -45,8 +43,7 @@ async function monitorSEO() {
 
       // Log top pages
       if (response.data?.d?.TopPages) {
-        console.log('
-📄 Top Pages:');
+        console.log('\n📄 Top Pages:');
         response.data.d.TopPages.slice(0, 10).forEach((page, i) => {
           console.log(`  ${i+1}. ${page.Url} - ${page.Clicks} clicks`);
         });
@@ -67,8 +64,7 @@ async function monitorSEO() {
         JSON.stringify(report, null, 2)
       );
 
-      console.log('
-✓ SEO monitoring report saved');
+      console.log('\n✓ SEO monitoring report saved');
 
     } catch (error) {
       console.log('Note: Bing Webmaster API data may take time to populate');
@@ -82,7 +78,14 @@ async function monitorSEO() {
 
 // Run if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  await monitorSEO();
+  monitorSEO()
+    .then(() => {
+      console.log('SEO monitoring completed successfully');
+    })
+    .catch(error => {
+      console.error('Error in SEO monitoring:', error);
+      process.exit(1);
+    });
 }
 
 export { monitorSEO };

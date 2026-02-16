@@ -43,7 +43,14 @@ async function submitSitemapToBing() {
 
 // Run if called directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  await submitSitemapToBing();
+  submitSitemapToBing()
+    .then(() => {
+      console.log('Sitemap submission completed successfully');
+    })
+    .catch(error => {
+      console.error('Error in sitemap submission:', error);
+      process.exit(1);
+    });
 }
 
 export { submitSitemapToBing };
