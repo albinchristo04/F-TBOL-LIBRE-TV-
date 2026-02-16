@@ -41,7 +41,20 @@ export async function fetchMatches(forceRefresh = false): Promise<Match[]> {
       }
     });
 
-    const matches = response.data;
+    // Handle different response formats
+    let matches = response.data;
+
+    // If response is not an array, try to extract matches from common formats
+    if (!Array.isArray(matches)) {
+      if (matches.matches && Array.isArray(matches.matches)) {
+        matches = matches.matches;
+      } else if (matches.data && Array.isArray(matches.data)) {
+        matches = matches.data;
+      } else {
+        console.error('Unexpected response format:', matches);
+        return [];
+      }
+    }
 
     // Enhance matches with computed fields
     const enhancedMatches: Match[] = matches.map((match: any) => ({
