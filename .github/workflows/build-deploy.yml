@@ -42,12 +42,10 @@ jobs:
           SITE_URL: https://futbollibre.velcuri.io
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # NOTE: Ensure the project 'f-tbol-libre-tv' exists in your Cloudflare Pages dashboard
           # Visit https://dash.cloudflare.com/ to create the project if needed
-          projectName: f-tbol-libre-tv
-          directory: ./dist
-          branch: main
+          command: pages deploy ./dist --project-name="f-tbol-libre-tv" --branch="main"
